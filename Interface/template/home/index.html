@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects Tab</title>
+    <link rel="stylesheet" href="{% static 'static/index.css' %}">
+</head>
+<body>
+    <div class="tabs">
+        <ul class="tab-list">
+            <li><a href="#objects" class="active">Objects</a></li>
+        </ul>
+    </div>
+    <div class="tab-content" id="objects">
+        <!-- Object results will be dynamically inserted here -->
+    </div>
+    <script src="{% static 'index.js' %}"></script>
+</body>
+</html>

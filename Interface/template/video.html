@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheaties</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        /* CSS for the dropdown */
+        #optionSelect {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        #optionSelect:focus {
+            border-color: #66afe9;
+            outline: none;
+        }
+
+        #optionSelect option {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.jpeg' %}" alt="Logo">
+            <span>Wheaties</span>
+        </div>
+        <nav>
+            <ul>
+                <li class="{% if current_page == 'image' %}active{% endif %}"><a href="{% url 'image' %}">Image</a></li>
+                <li class="{% if current_page == 'video' %}active{% endif %}"><a href="{% url 'video' %}">Video</a></li>
+                <li class="{% if current_page == 'directory' %}active{% endif %}"><a href="{% url 'directory' %}">Directory</a></li>
+                <li class="{% if current_page == 'memories' %}active{% endif %}"><a href="{% url 'memories' %}">Memories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Wheat Detection Using Video</h1>
+        <p>Capture the essence of your wheat field through video. Upload your video to reveal insights about the health of your wheat. Is it thriving, or is there a hidden ailment?</p>
+        <p>Discover the disease, its severity, and the solutions to ensure a bountiful harvest. Select the model that aligns with your needs and detect below.</p>
+        
+        <div class="content-wrapper">
+            <!-- Form for uploading media -->
+            <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'predictVideo' %}">
+                {% csrf_token %}
+                <div class="upload-section">
+                    <div class="upload-box" id="uploadBox">
+                        <input type="file" id="mediaUpload" name="media" accept="video/*" onchange="handleFileSelect(event)">
+                        <label for="mediaUpload">
+                            <img src="{% static 'images/camera.png' %}" alt="Upload Icon">
+                            <p>Drop a video here<br>or<br>click to browse</p>
+                        </label>
+                        <div id="fileNameDisplay" class="file-name-display"></div> <!-- This will show the filename -->
+                    </div>
+                    <select name="option" id="optionSelect">
+                        <option value="1">Model 1 (Health vs Diseased)</option>
+                        <option value="2">Model 2 (Rust vs Smut)</option>
+                        <option value="3">Model 3 (Brown rust vs Stem rust)</option>
+                        <option value="4">Model 4 (Loose smut scoring)</option>
+                        <option value="5">Model 5 (Brown rust scoring)</option>
+                        <option value="6">Model 6 (Stem rust scoring)</option>
+                    </select>
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+
+            <!-- Display the uploaded media and prediction results -->
+            <div class="results">
+                {% if frame_count %}
+                    <h2>Number of images in the video: {{ frame_count }}</h2>
+                {% endif %}
+                {% if label_counts %}
+                    <h2>Predicted labels:</h2>
+                    <ul>
+                        {% for label, count in label_counts.items %}
+                            <li>{{ label }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if selected_option %}
+                    <h2>Selected Model: {{ selected_option }}</h2>
+                {% endif %}
+                {% if error %}
+                    <h2>Error: {{ error }}</h2>
+                {% endif %}
+            </div>
+            
+        </div>
+    </main>
+    <script>
+        function handleFileSelect(event) {
+            var file = event.target.files[0];
+            var fileNameDisplay = document.getElementById('fileNameDisplay');
+            fileNameDisplay.textContent = file.name;
+        }
+    </script>
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories - Maroon 5</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.jpeg' %}" alt="Logo">
+            <span>Wheaties</span>
+        </div>
+        <nav>
+            <ul>
+                <li class="{% if current_page == 'image' %}active{% endif %}"><a href="{% url 'image' %}">Image</a></li>
+                <li class="{% if current_page == 'video' %}active{% endif %}"><a href="{% url 'video' %}">Video</a></li>
+                <li class="{% if current_page == 'directory' %}active{% endif %}"><a href="{% url 'directory' %}">Directory</a></li>
+                <li class="{% if current_page == 'memories' %}active{% endif %}"><a href="{% url 'memories' %}">Memories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Memories - Maroon 5</h1>
+        <div class="content-wrapper">
+            <div class="lyrics">
+                Here's to the ones that we got<br>
+                Cheers to the wish you were here, but you're not<br>
+                'Cause the drinks bring back all the memories<br>
+                Of everything we've been through<br>
+                Toast to the ones here today<br>
+                Toast to the ones that we lost on the way<br>
+                'Cause the drinks bring back all the memories<br>
+                And the memories bring back, memories bring back you<br><br>
+
+                There's a time that I remember, when I did not know no pain<br>
+                When I believed in forever, and everything would stay the same<br>
+                Now my heart feel like December when somebody say your name<br>
+                'Cause I can't reach out to call you, but I know I will one day, yeah<br><br>
+
+                Everybody hurts sometimes<br>
+                Everybody hurts someday, ayy-ayy<br>
+                But everything gon' be alright<br>
+                Go and raise a glass and say, ayy<br><br>
+
+                Here's to the ones that we got<br>
+                Cheers to the wish you were here, but you're not<br>
+                'Cause the drinks bring back all the memories<br>
+                Of everything we've been through<br>
+                Toast to the ones here today<br>
+                Toast to the ones that we lost on the way<br>
+                'Cause the drinks bring back all the memories<br>
+                And the memories bring back, memories bring back you<br><br>
+
+                Doo-doo, doo-doo-doo<br>
+                Doo-doo-doo, doo-doo-doo<br>
+                Doo-doo-doo, doo-doo<br>
+                Memories bring back, memories bring back you<br><br>
+
+                There's a time that I remember when I never felt so lost<br>
+                When I felt all of the hatred was too powerful to stop (ooh, yeah)<br>
+                Now my heart feel like an ember and it's lighting up the dark<br>
+                I'll carry these torches for ya and you know I'll never drop, yeah<br><br>
+
+                Everybody hurts sometimes<br>
+                Everybody hurts someday, ayy-ayy<br>
+                But everything gon' be alright<br>
+                Go and raise a glass and say, ayy<br><br>
+
+                Here's to the ones that we got (oh-oh)<br>
+                Cheers to the wish you were here, but you're not<br>
+                'Cause the drinks bring back all the memories<br>
+                Of everything we've been through (no, no)<br>
+                Toast to the ones here today (ayy)<br>
+                Toast to the ones that we lost on the way<br>
+                'Cause the drinks bring back all the memories (ayy)<br>
+                And the memories bring back, memories bring back you<br><br>
+
+                Doo-doo, doo-doo-doo<br>
+                Doo-doo-doo, doo-doo-doo<br>
+                Doo-doo-doo, doo-doo (ooh, yeah)<br>
+                Memories bring back, memories bring back you<br><br>
+
+                Doo-doo, doo-doo-doo<br>
+                Doo-doo-doo, doo-doo-doo<br>
+                Doo-doo-doo, doo-doo (ooh, yeah)<br>
+                Memories bring back, memories bring back you<br><br>
+
+                Yeah, yeah, yeah<br>
+                Yeah, yeah, yeah, yeah, yeah, no, no<br>
+                Memories bring back, memories bring back you
+            </div>
+        </div>
+    </main>
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

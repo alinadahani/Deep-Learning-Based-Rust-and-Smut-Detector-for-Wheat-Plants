@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheaties</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.jpeg' %}" alt="Logo">
+            <span>Wheaties</span>
+        </div>
+        <nav>
+            <ul>
+                <li class="{% if current_page == 'image' %}active{% endif %}"><a href="{% url 'image' %}">Image</a></li>
+                <li class="{% if current_page == 'video' %}active{% endif %}"><a href="{% url 'video' %}">Video</a></li>
+                <li class="{% if current_page == 'directory' %}active{% endif %}"><a href="{% url 'directory' %}">Directory</a></li>
+                <li class="{% if current_page == 'memories' %}active{% endif %}"><a href="{% url 'memories' %}">Memories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Wheat Detection Using Image</h1>
+        <p>Upload an image of your wheat crop to uncover its health status. Our advanced analysis will determine if the wheat is healthy or diseased,</p>
+        <p>and if diseased, it will identify the type and stage of the disease, providing you with valuable insights. Explore below.</p>
+        
+        <div class="content-wrapper">
+            <!-- Form for uploading media -->
+            <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'predictImage' %}">
+                {% csrf_token %}
+                <div class="upload-section">
+                    <div class="upload-box" id="uploadBox">
+                        <input type="file" id="mediaUpload" name="media" accept="image/*" onchange="handleFileSelect(event)">
+                        <label for="mediaUpload">
+                            <img src="{% static 'images/camera.png' %}" alt="Upload Icon">
+                            <p>Drop an image here<br>or<br>click to browse</p>
+                        </label>
+                        <div id="fileNameDisplay" class="file-name-display"></div> <!-- This will show the filename -->
+                    </div>
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+
+            <!-- Display the uploaded media and prediction results -->
+            <div class="results">
+                {% if image_base64 %}
+                    <img id="uploadedImage" src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image">
+                {% endif %}
+                {% if predicted_label %}
+                    <h2>Prediction: {{ predicted_label }}</h2>
+                {% endif %}
+                {% if error %}
+                    <h2>Error: {{ error }}</h2>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    <script>
+        function handleFileSelect(event) {
+            var file = event.target.files[0];
+            var fileNameDisplay = document.getElementById('fileNameDisplay');
+            fileNameDisplay.textContent = file.name;
+        }
+    </script>
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>
